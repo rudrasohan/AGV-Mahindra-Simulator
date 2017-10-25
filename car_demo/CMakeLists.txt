@@ -17,6 +17,7 @@ find_package(ignition-msgs0 REQUIRED)
 catkin_package(
  # INCLUDE_DIRS include
  # LIBRARIES gazebo_radar_plugin
+ LIBRARIES gazebo_ros_velodyne_laser
  CATKIN_DEPENDS gazebo_ros
 #  DEPENDS system_lib
 )
@@ -26,8 +27,8 @@ include_directories(include ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS} ${SDFo
 add_library(PriusHybridPlugin SHARED plugins/PriusHybridPlugin.cc)
 target_link_libraries(PriusHybridPlugin ${GAZEBO_LIBRARIES} ${IGNITION-MSGS_LIBRARIES})
 
-add_library(gazebo_ros_block_laser SHARED plugins/gazebo_ros_block_laser.cpp)
-target_link_libraries(gazebo_ros_block_laser ${GAZEBO_LIBRARIES} ${IGNITION-MSGS_LIBRARIES})
+add_library(gazebo_ros_velodyne_laser SHARED plugins/GazeboRosVelodyneLaser.cpp)
+target_link_libraries(gazebo_ros_velodyne_laser ${pwd} ${IGNITION-MSGS_LIBRARIES})
 
 add_library(gazebo_ros_imu_sensor SHARED plugins/gazebo_ros_imu_sensor.cpp)
 target_link_libraries(gazebo_ros_imu_sensor ${pwd} ${IGNITION-MSGS_LIBRARIES})
@@ -35,7 +36,7 @@ target_link_libraries(gazebo_ros_imu_sensor ${pwd} ${IGNITION-MSGS_LIBRARIES})
 catkin_install_python(PROGRAMS nodes/joystick_translator
                       DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
-install(TARGETS PriusHybridPlugin gazebo_ros_block_laser gazebo_ros_imu_sensor
+install(TARGETS PriusHybridPlugin gazebo_ros_velodyne_laser gazebo_ros_imu_sensor
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
